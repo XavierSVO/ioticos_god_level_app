@@ -11,7 +11,7 @@ const widgetsRegisted = [
   { value: 'weather', label: 'Weather', direction: 'OUTPUT ->' }
 ]
 
-// Enum with config of Widgets
+// Enum with defaul config of Widgets
 const configWidgets = {
   button: {
     userId: "userid",
@@ -123,7 +123,6 @@ export default {
       },
       errors: {},
       widgetsOptions: [...widgetsRegisted]
-
     };
     
   },
