@@ -1,4 +1,4 @@
-const widgetTypes = [
+export const widgetTypes = [
     { value: 'numberchart', label: 'Number Chart', direction: 'INPUT <-' },
     { value: 'indicator', label: 'Boolean Indicator', direction: 'INPUT <-' },
     { value: 'map', label: 'Map', direction: 'INPUT <-' },
@@ -8,7 +8,7 @@ const widgetTypes = [
   ]
   
   // Enum with defaul config of Widgets
-  const widgetConfigurations = {
+export const widgetConfigurationss = {
     button: {
       userId: "userid",
       selectedDevice: {
@@ -92,25 +92,19 @@ const widgetTypes = [
     }
   };
 
-  const widgets = [];
 
-
-export default {
-    templateId: null,
-    temporalWidgetConfig: null,
-    configSelectedWidget: {},
-    isEditing: false,
-    widgets,
-    templates: [],
-    widgetType: "",
-    templateName: "",
-    templateDescription: "",
-    draggableOptions: {
-      group: "widgets",
-      animation: 150,
-      direction: "horizontal"
-    },
-    errors: {},
-    widgetTypes,
-    widgetConfigurations
-}
+  export let templateId = null;
+  export let temporalWidgetConfig = null;
+  export let configSelectedWidget = {};
+  export let isEditing = false;
+  export let widgets = [];
+  export let templates = [];
+  export let widgetType = "";
+  export let templateName = "";
+  export let templateDescription = "";
+  export const draggableOptions = {
+    group: "widgets",
+    animation: 150,
+    direction: "horizontal"
+  };
+  export let errors = {};

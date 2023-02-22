@@ -156,6 +156,7 @@
 
 <script>
 import { configSelectedWidget, widgetType, temporalWidgetConfig, widgetTypes } from './templateData.js';
+import { makeid } from './scriptTemplates';
 
 
 export default {
@@ -190,7 +191,7 @@ export default {
   methods: {
     //Add Widget
     addNewWidget() {
-      this.configSelectedWidget.variable = this.makeid(10);
+      this.configSelectedWidget.variable = makeid(10);
       this.widgets.push(JSON.parse(JSON.stringify(this.configSelectedWidget)));
     },
       //Update wiget from local
