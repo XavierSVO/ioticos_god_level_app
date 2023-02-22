@@ -2,7 +2,7 @@
 // Original Widget on
 // https://github.com/dipu-bd/vue-weather-widget.git
 
-import Utils from "./utils";
+import Utils from "./utilsWeater";
 import { v4 as uuid } from "uuid";
 import Skycon from "vue-skycons";
 import CitiesListItem from "./CitiesListItem";

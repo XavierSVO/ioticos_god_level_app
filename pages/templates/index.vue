@@ -151,6 +151,7 @@
         </div>
       </card>
     </div>
+    
 
     <!-- DASHBOARD PREVIEW -->
     <div class="row">
