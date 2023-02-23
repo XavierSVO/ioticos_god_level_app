@@ -1,61 +1,79 @@
-<template>
-    
-    <!-- TEMPLATES TABLE -->
-    <div class="row">
-      <card>
-        <div slot="header">
-          <h4 class="card-title">Templates</h4>
-        </div>
+<template><!-- TEMPLATES TABLE -->
+  <div class="row">
+    <card>
+      <div slot="header">
+        <h4 class="card-title">Templates</h4>
+      </div>
 
-        <div class="row">
-          <el-table :data="templates">
-            <el-table-column min-width="50" label="#" align="center">
-              <div class="photo" slot-scope="{ row, $index }">
-                {{ $index + 1 }}
-              </div>
-            </el-table-column>
+      <div class="row">
+        <el-table :data="templates">
+          <el-table-column min-width="50" label="#" align="center">
+            <div class="photo" slot-scope="{ row, $index }">
+              {{ $index + 1 }}
+            </div>
+          </el-table-column>
 
-            <el-table-column prop="name" label="Name"></el-table-column>
+          <el-table-column prop="name" label="Name"></el-table-column>
 
-            <el-table-column prop="description" label="Description"></el-table-column>
+          <el-table-column prop="description" label="Description"></el-table-column>
 
-            <el-table-column prop="widgets.length" label="Widgets"></el-table-column>
+          <el-table-column prop="widgets.length" label="Widgets"></el-table-column>
 
-            <el-table-column header-align="right" align="right" label="Actions">
-              <div slot-scope="{ row, $index }" class="text-right table-actions">
-                <el-tooltip content="Edit" effect="light" :open-delay="300" placement="top">
-                  <base-button @click="editTemplate(row)" type="warning" icon size="sm" class="btn-link">
-                    <i class="fa fa-pen"></i>
-                  </base-button>
-                </el-tooltip>
-                <el-tooltip content="Delete" effect="light" :open-delay="300" placement="top">
-                  <base-button @click="deleteTemplate(row)" type="danger" icon size="sm" class="btn-link">
-                    <i class="tim-icons icon-simple-remove "></i>
-                  </base-button>
-                </el-tooltip>
-              </div>
-            </el-table-column>
-          </el-table>
-        </div>
-      </card>
-    </div>
+          <el-table-column header-align="right" align="right" label="Actions">
+            <div slot-scope="{ row, $index }" class="text-right table-actions">
+              <el-tooltip content="Edit" effect="light" :open-delay="300" placement="top">
+                <base-button @click="editTemplate(row)" type="warning" icon size="sm" class="btn-link">
+                  <i class="fa fa-pen"></i>
+                </base-button>
+              </el-tooltip>
+              <el-tooltip content="Delete" effect="light" :open-delay="300" placement="top">
+                <base-button @click="deleteTemplate(row)" type="danger" icon size="sm" class="btn-link">
+                  <i class="tim-icons icon-simple-remove "></i>
+                </base-button>
+              </el-tooltip>
+            </div>
+          </el-table-column>
+        </el-table>
+      </div>
+    </card>
+  </div>
 </template>
 
 <script>
-  import { templates } from './templateData.js';
-  import { getTemplates } from './scriptTemplates';
+import { Table, TableColumn } from "element-ui";
+import { getTemplates } from "./scriptTemplates"
+
+import {
+  templates,
+  widgets,
+  templateDescription,
+  templateName,
+  templateId,
+  widgetType,
+  isEditing
+} from './templateData.js';
 
 
 export default {
-  name: 'template-table',
+  name: 'templates-table',
 
   data() {
     return {
-      templates
+      templates,
+      widgets,
+      templateDescription,
+      templateName,
+      templateId,
+      widgetType,
+      isEditing
     }
   },
   mounted() {
-    getTemplates();
+    getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
+  },
+  components: {
+    [Table.name]: Table,
+    [TableColumn.name]: TableColumn,
   },
   methods: {
     //Delete Template
@@ -93,7 +111,7 @@ export default {
             icon: "tim-icons icon-check-2",
             message: template.name + " was deleted!"
           });
-          getTemplates();
+          getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
         }
       } catch (error) {
         this.$notify({

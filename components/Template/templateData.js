@@ -8,7 +8,7 @@ export const widgetTypes = [
   ]
   
   // Enum with defaul config of Widgets
-export const widgetConfigurationss = {
+export const widgetConfigurations = {
     button: {
       userId: "userid",
       selectedDevice: {

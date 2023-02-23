@@ -27,11 +27,14 @@
 </template>
 
 <script>
+
+import draggable from "vuedraggable";
+
 import { widgets, temporalWidgetConfig, draggableOptions } from './templateData.js';
 
 
 export default {
-  name: 'dashboard-preview',
+  name: 'dash-board-preview',
 
   data() {
     return {
@@ -39,6 +42,9 @@ export default {
       temporalWidgetConfig,
       draggableOptions
     }
+  },
+  components: {
+    draggable
   },
   methods: {
         /**

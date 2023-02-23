@@ -1,6 +1,6 @@
 <template>
 <!-- WIDGET CONFIGURATOR -->
-  <form class="row">
+  <form @submit.prevent="" class="row">
     <card>
       <div slot="header">
         <h4 class="card-title">Widgets {{ configSelectedWidget.column }}</h4>
@@ -98,8 +98,8 @@
             <base-input v-model="configSelectedWidget.icon" label="Icon" type="text"></base-input>
 
             <br />
-            <base-input v-model="configSelectedWidget.updateInterval" label="Update Interval" type="text" max="172800"
-              @input="handleInput($event, 30, 172800, 'updateInterval')" :error="errors.updateInterval"></base-input>
+            <base-input v-model="configSelectedWidget.updateInterval" label="Update Interval" type="number" max="172800">
+          </base-input>
 
 
             <br />
@@ -155,19 +155,33 @@
 
 
 <script>
-import { configSelectedWidget, widgetType, temporalWidgetConfig, widgetTypes } from './templateData.js';
+
+// import componets
+
+import { Select, Option } from "element-ui";
+
+
+//import config and scripts
+
+import { configSelectedWidget, widgetType, temporalWidgetConfig, widgetTypes, widgetConfigurations, widgets} from './templateData.js';
 import { makeid } from './scriptTemplates';
 
 
 export default {
   name: 'template-configurator',
+  components: {
+    [Option.name]: Option,
+    [Select.name]: Select,
+  },
 
   data() {
     return {
+      widgetConfigurations,
       configSelectedWidget,
       widgetType,
       temporalWidgetConfig,
-      widgetTypes
+      widgetTypes,
+      widgets
     }
   },
   watch: {
@@ -175,7 +189,7 @@ export default {
       try {
         if (!this.temporalWidgetConfig) {
           this.configSelectedWidget = JSON.parse(
-            JSON.stringify(configWidgets[`${newWidgetType}`])
+            JSON.stringify(this.widgetConfigurations[`${newWidgetType}`])
           );
         }
       } catch (error) {

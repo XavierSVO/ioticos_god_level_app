@@ -1,9 +1,9 @@
 <template>
     <div>
         <template-configurator></template-configurator>
-        <dashboard-preview></dashboard-preview>
+        <dash-board-preview></dash-board-preview>
         <save-template-form></save-template-form>
-        <template-table></template-table>
+        <templates-table></templates-table>
     </div>
 </template>
 

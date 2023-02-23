@@ -29,8 +29,8 @@
 </template>
 
 <script>
+import { getTemplates } from './scriptTemplates'
 import { templateName, templateDescription, isEditing, widgets, templateId } from './templateData';
-import { getTemplates } from './scriptTemplates';
  
 
 export default {
