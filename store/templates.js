@@ -1,4 +1,7 @@
-export const widgetTypes = [
+import Vue from 'vue';
+
+
+const widgetTypes = [
     { value: 'numberchart', label: 'Number Chart', direction: 'INPUT <-' },
     { value: 'indicator', label: 'Boolean Indicator', direction: 'INPUT <-' },
     { value: 'map', label: 'Map', direction: 'INPUT <-' },
@@ -8,7 +11,7 @@ export const widgetTypes = [
   ]
   
   // Enum with defaul config of Widgets
-export const widgetConfigurations = {
+const widgetConfigurations = {
     button: {
       userId: "userid",
       selectedDevice: {
@@ -70,7 +73,7 @@ export const widgetConfigurations = {
       variable: "varname",
       variableType: "output",
       class: "danger",
-      updateInterval: "30",
+      setInterval: "30",
       widget: "weather",
       icon: "fa-solid fa-cloud-sun",
       column: "col-10"
@@ -91,19 +94,70 @@ export const widgetConfigurations = {
       column: "col-6"
     }
   };
+// store/templateStore.js
 
-  export let templateId = null;
-  export let temporalWidgetConfig = null;
-  export let configSelectedWidget = {};
-  export let isEditing = false;
-  export let widgets = [];
-  export var templates = [];
-  export let widgetType = "";
-  export let templateName = "";
-  export let templateDescription = "";
-  export const draggableOptions = {
-    group: "widgets",
-    animation: 150,
-    direction: "horizontal"
-  };
-  export let errors = {};
+export const state = () => ({
+    templateId: null,
+    templates: [],
+    templateName: "",
+    templateDescription: "",
+    widgets: [],
+    widgetTypes,
+    widgetType: "",
+    temporalWidgetConfig: null,
+    configSelectedWidget: {},
+    isEditing: false,
+    widgetConfigurations
+  });
+
+export const mutations = {
+  setTemplateId(state, templateId) {
+    state.templateId = templateId;
+  },
+  setWidgets(state, widgets) {
+    state.widgets = widgets;
+  },
+  setTemplates(state, templates) {
+    state.templates = templates;
+  },
+  setWidgetType(state, widgetType) {
+    state.widgetType = widgetType;
+  },
+  setTemplateName(state, templateName) {
+    state.templateName = templateName;
+  },
+  setTemplateDescription(state, templateDescription) {
+    state.templateDescription = templateDescription;
+  },
+  setErrors(state, errors) {
+    state.errors = errors;
+  }
+};
+
+export const actions = {
+  async getTemplates({ commit, rootState, context }) {
+    const axiosHeaders = {
+      headers: {
+        token: rootState.auth.token
+      }
+    };
+
+    try {
+      const res = await this.$axios.get("/template", axiosHeaders);
+
+      console.log(this)
+      if (res.data.status == "success") {
+        commit('setTemplates', res.data.data);
+      }
+    } catch (error) {
+      Vue.prototype.$notify({
+        type: "danger",
+        icon: "tim-icons icon-alert-circle-exc",
+        message: "Error getting templates..."
+      });
+      console.log(error);
+      return;
+    }
+  },
+
+}

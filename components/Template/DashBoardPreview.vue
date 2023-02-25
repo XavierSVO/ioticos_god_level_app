@@ -30,7 +30,7 @@
 
 import draggable from "vuedraggable";
 
-import { widgets, temporalWidgetConfig, draggableOptions } from './templateData.js';
+import { widgets, temporalWidgetConfig, widgetType } from './templateData.js';
 
 
 export default {
@@ -40,7 +40,12 @@ export default {
     return {
       widgets,
       temporalWidgetConfig,
-      draggableOptions
+      draggableOptions: {
+        group: "widgets",
+        animation: 150,
+        direction: "horizontal"
+      },
+      widgetType
     }
   },
   components: {

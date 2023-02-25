@@ -181,7 +181,8 @@ export default {
       widgetType,
       temporalWidgetConfig,
       widgetTypes,
-      widgets
+      widgets,
+      widgetType
     }
   },
   watch: {

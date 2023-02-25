@@ -30,7 +30,7 @@
 
 <script>
 import { getTemplates } from './scriptTemplates'
-import { templateName, templateDescription, isEditing, widgets, templateId } from './templateData';
+import { templateName, templateDescription, isEditing, widgets, templateId, templates } from './templateData';
  
 
 export default {
@@ -38,7 +38,8 @@ export default {
 
   data() {
     return {
-      templateName,
+			templates,
+      		templateName,
 			templateDescription,
 			isEditing,
 			widgets,
@@ -75,7 +76,7 @@ export default {
 						icon: "tim-icons icon-alert-circle-exc",
 						message: "Template created!"
 					});
-					getTemplates();
+					getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
 
 					this.widgets = [];
 				}
@@ -114,7 +115,7 @@ export default {
 						message: "Template update!"
 					});
 					this.$store.dispatch("getDevices");
-					getTemplates();
+					getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
 					this.widgets = [];
 					this.isEditing = false;
 				}

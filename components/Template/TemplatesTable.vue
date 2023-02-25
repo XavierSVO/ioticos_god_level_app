@@ -41,10 +41,8 @@
 
 <script>
 import { Table, TableColumn } from "element-ui";
-import { getTemplates } from "./scriptTemplates"
 
 import {
-  templates,
   widgets,
   templateDescription,
   templateName,
@@ -59,7 +57,6 @@ export default {
 
   data() {
     return {
-      templates,
       widgets,
       templateDescription,
       templateName,
@@ -69,11 +66,17 @@ export default {
     }
   },
   mounted() {
-    getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
+      this.$store.dispatch('templates/getTemplates')
   },
   components: {
     [Table.name]: Table,
     [TableColumn.name]: TableColumn,
+  },
+
+  computed: {
+    templates() {
+      return this.$store.state.templates.templates
+    }
   },
   methods: {
     //Delete Template
@@ -123,14 +126,14 @@ export default {
         return;
       }
     },
-    editTemplate(template) {
-      this.widgets = template.widgets;
-      this.templateDescription = template.description;
-      this.templateName = template.name;
-      this.templateId = template._id;
-      this.widgetType = "";
-      this.isEditing = true;
-    },
+    // editTemplate(template) {
+    //   this.widgets = template.widgets;
+    //   this.templateDescription = template.description;
+    //   this.templateName = template.name;
+    //   this.templateId = template._id;
+    //   this.widgetType = "";
+    //   this.isEditing = true;
+    // },
 
   }
 }
