@@ -104,7 +104,7 @@
 
             <br />
           </div>
-          <template v-if="widgetType != ''">
+          <template v-if="widgetType != null">
 
             <el-select v-model="configSelectedWidget.class" class="select-success" placeholder="Select Class"
               style="width: 100%;">
@@ -163,9 +163,6 @@ import { Select, Option } from "element-ui";
 
 //import config and scripts
 
-import { configSelectedWidget, widgetType, temporalWidgetConfig, widgetTypes, widgetConfigurations, widgets} from './templateData.js';
-import { makeid } from './scriptTemplates';
-
 
 export default {
   name: 'template-configurator',
@@ -176,19 +173,39 @@ export default {
 
   data() {
     return {
-      widgetConfigurations,
-      configSelectedWidget,
-      widgetType,
-      temporalWidgetConfig,
-      widgetTypes,
-      widgets,
-      widgetType
+      widgetType: null,
+      widgetConfigurations: this.$store.state.templates.widgetConfigurations,
+      configSelectedWidget: {},
     }
   },
+  computed: {
+    currentWidgetType() {
+      return this.$store.state.templates.widgetType
+    },
+    temporalWidgetConfig() {
+      return this.$store.state.templates.temporalWidgetConfig
+    },
+    widgetTypes() {
+      return this.$store.state.templates.widgetTypes
+    },
+    widgets() {
+      return this.$store.state.templates.widgets
+    },
+    currentConfigSelectedWidget() {
+      return this.$store.state.templates.configSelectedWidget
+    },
+  },
   watch: {
+    currentWidgetType(newVal) {
+      this.widgetType = newVal
+    },
+    currentConfigSelectedWidget(newVal) {
+      this.configSelectedWidget = newVal
+    },
     widgetType(newWidgetType) {
       try {
         if (!this.temporalWidgetConfig) {
+          console.log(this.widgetConfigurations)
           this.configSelectedWidget = JSON.parse(
             JSON.stringify(this.widgetConfigurations[`${newWidgetType}`])
           );
@@ -206,13 +223,12 @@ export default {
   methods: {
     //Add Widget
     addNewWidget() {
-      this.configSelectedWidget.variable = makeid(10);
-      this.widgets.push(JSON.parse(JSON.stringify(this.configSelectedWidget)));
+      this.$store.dispatch('templates/addNewWidget', this.configSelectedWidget);
     },
       //Update wiget from local
     updateWidget() {
       this.temporalWidgetConfig = null;
-      this.widgetType = "";
+      this.widgetType = null;
     }
   }
 }

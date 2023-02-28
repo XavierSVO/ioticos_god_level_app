@@ -30,22 +30,29 @@
 
 import draggable from "vuedraggable";
 
-import { widgets, temporalWidgetConfig, widgetType } from './templateData.js';
-
-
 export default {
   name: 'dash-board-preview',
 
   data() {
     return {
-      widgets,
-      temporalWidgetConfig,
+      widgets: [],
+      temporalWidgetConfig: null,
       draggableOptions: {
         group: "widgets",
         animation: 150,
         direction: "horizontal"
       },
-      widgetType
+      widgetType: this.$store.state.templates.widgetType
+    }
+  },
+  computed: {
+    currenteWigets() {
+      return this.$store.state.templates.widgets;
+    }
+  },
+  watch:{
+    currenteWigets(widgets) {
+      this.widgets = widgets;
     }
   },
   components: {
@@ -74,8 +81,8 @@ export default {
     },
       //edit Widget from local
     editWidget(widget) {
-      this.temporalWidgetConfig = widget;
-      this.widgetType = widget.widget;
+      this.$store.commit('templates/setConfigSelectedWidget', widget)
+      this.$store.commit('templates/setWidgetType', widget.widget);
     },
     //Delete Widget
     deleteWidget(index) {

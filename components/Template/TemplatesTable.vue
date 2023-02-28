@@ -42,27 +42,12 @@
 <script>
 import { Table, TableColumn } from "element-ui";
 
-import {
-  widgets,
-  templateDescription,
-  templateName,
-  templateId,
-  widgetType,
-  isEditing
-} from './templateData.js';
-
 
 export default {
   name: 'templates-table',
 
   data() {
     return {
-      widgets,
-      templateDescription,
-      templateName,
-      templateId,
-      widgetType,
-      isEditing
     }
   },
   mounted() {
@@ -114,7 +99,7 @@ export default {
             icon: "tim-icons icon-check-2",
             message: template.name + " was deleted!"
           });
-          getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
+          this.$store.dispatch('templates/getTemplates')
         }
       } catch (error) {
         this.$notify({

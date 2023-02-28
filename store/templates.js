@@ -4,7 +4,6 @@ import Vue from 'vue';
 const widgetTypes = [
     { value: 'numberchart', label: 'Number Chart', direction: 'INPUT <-' },
     { value: 'indicator', label: 'Boolean Indicator', direction: 'INPUT <-' },
-    { value: 'map', label: 'Map', direction: 'INPUT <-' },
     { value: 'switch', label: 'Switch', direction: 'OUTPUT ->' },
     { value: 'button', label: 'Button', direction: 'OUTPUT ->' },
     { value: 'weather', label: 'Weather', direction: 'OUTPUT ->' }
@@ -95,6 +94,18 @@ const widgetConfigurations = {
     }
   };
 // store/templateStore.js
+const makeid = (length) => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(
+      Math.floor(Math.random() * charactersLength)
+    );
+  }
+  return result;
+};
 
 export const state = () => ({
     templateId: null,
@@ -103,7 +114,7 @@ export const state = () => ({
     templateDescription: "",
     widgets: [],
     widgetTypes,
-    widgetType: "",
+    widgetType: null,
     temporalWidgetConfig: null,
     configSelectedWidget: {},
     isEditing: false,
@@ -111,11 +122,15 @@ export const state = () => ({
   });
 
 export const mutations = {
+
+  setConfigSelectedWidget(state, newConfig) {
+    state.configSelectedWidget = newConfig;
+  },
   setTemplateId(state, templateId) {
     state.templateId = templateId;
   },
-  setWidgets(state, widgets) {
-    state.widgets = widgets;
+  addWidget(state, widget) {
+    state.widgets.push(widget);
   },
   setTemplates(state, templates) {
     state.templates = templates;
@@ -135,7 +150,14 @@ export const mutations = {
 };
 
 export const actions = {
-  async getTemplates({ commit, rootState, context }) {
+
+  addNewWidget({ commit }, configSelectedWidget,){
+    configSelectedWidget.variable = makeid(10);
+    const widget = JSON.parse(JSON.stringify(configSelectedWidget));
+
+    commit('addWidget', widget)
+  },
+  async getTemplates({ commit, rootState }) {
     const axiosHeaders = {
       headers: {
         token: rootState.auth.token
@@ -144,8 +166,6 @@ export const actions = {
 
     try {
       const res = await this.$axios.get("/template", axiosHeaders);
-
-      console.log(this)
       if (res.data.status == "success") {
         commit('setTemplates', res.data.data);
       }
