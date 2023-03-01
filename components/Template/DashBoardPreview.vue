@@ -35,24 +35,22 @@ export default {
 
   data() {
     return {
-      widgets: [],
       temporalWidgetConfig: null,
       draggableOptions: {
         group: "widgets",
         animation: 150,
         direction: "horizontal"
       },
-      widgetType: this.$store.state.templates.widgetType
     }
   },
   computed: {
-    currenteWigets() {
-      return this.$store.state.templates.widgets;
-    }
-  },
-  watch:{
-    currenteWigets(widgets) {
-      this.widgets = widgets;
+    widgets: {
+      get() {
+        return this.$store.state.templates.widgets;
+      },
+      set(widgets) {
+        this.$store.dispatch('templates/updateWigets', widgets)
+      }
     }
   },
   components: {
@@ -69,13 +67,11 @@ export default {
     moveWidget(index, direction) {
       if (direction === "up") {
         if (index > 0) {
-          const [item] = this.widgets.splice(index, 1);
-          this.widgets.splice(index - 1, 0, item);
+          this.$store.commit('templates/MOVE_WIDGET', { index, direction });
         }
       } else if (direction === "down") {
         if (index < this.widgets.length - 1) {
-          const [item] = this.widgets.splice(index, 1);
-          this.widgets.splice(index + 1, 0, item);
+          this.$store.commit('templates/MOVE_WIDGET', { index, direction });
         }
       }
     },
@@ -86,7 +82,9 @@ export default {
     },
     //Delete Widget
     deleteWidget(index) {
-      this.widgets.splice(index, 1);
+      const tempWigets = [...this.widgets];
+      tempWigets.splice(index, 1)
+      this.widgets = tempWigets
     }
   }
 }

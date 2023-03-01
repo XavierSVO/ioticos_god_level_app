@@ -29,23 +29,50 @@
 </template>
 
 <script>
-import { getTemplates } from './scriptTemplates'
-import { templateName, templateDescription, isEditing, widgets, templateId, templates } from './templateData';
- 
 
 export default {
   name: 'save-template-form',
 
-  data() {
-    return {
-			templates,
-      		templateName,
-			templateDescription,
-			isEditing,
-			widgets,
-			templateId,
-			templateDescription,
-			templateName
+  computed: {
+    widgets:{
+      get(){
+        return this.$store.state.templates.widgets
+      },
+      set(wigets){
+        this.$store.dispatch('templates/updateWigets', wigets );
+      }
+    },
+    templateName: {
+      get() {
+        return this.$store.state.templates.templateName;
+      },
+      set(newName) {
+        this.$store.dispatch('templates/updateTemplateName', newName);
+      }
+    },
+    templateId:{
+      get(){
+        return this.$store.state.templates.templateId
+      },
+      set(id){
+        this.$store.dispatch('templates/updateTemplateId', id)
+      }
+    },
+    isEditing: {
+      get() {
+        return this.$store.state.templates.isEditing
+      },
+      set(bool) {
+        this.$store.dispatch('templates/updateIsEditing', bool);
+      }
+    },
+    templateDescription: {
+      get() {
+        return this.$store.state.templates.templateDescription
+      },
+      set(description) {
+        this.$store.dispatch('templates/updateTemplateDescription', description)
+      }
     }
   },
 	methods :{
@@ -76,7 +103,7 @@ export default {
 						icon: "tim-icons icon-alert-circle-exc",
 						message: "Template created!"
 					});
-					getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
+					this.$store.dispatch('templates/getTemplates');
 
 					this.widgets = [];
 				}
@@ -115,7 +142,7 @@ export default {
 						message: "Template update!"
 					});
 					this.$store.dispatch("getDevices");
-					getTemplates(this.$store.state.auth.token, this.$notify, this.$axios, this.templates);
+					this.$store.dispatch("templates/getTemplates")
 					this.widgets = [];
 					this.isEditing = false;
 				}

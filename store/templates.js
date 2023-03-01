@@ -122,26 +122,44 @@ export const state = () => ({
   });
 
 export const mutations = {
-
+  MOVE_WIDGET(state, { index, direction }) {
+    if (direction === "up") {
+      if (index > 0) {
+        const [item] = state.widgets.splice(index, 1);
+        state.widgets.splice(index - 1, 0, item);
+      }
+    } else if (direction === "down") {
+      if (index < state.widgets.length - 1) {
+        const [item] = state.widgets.splice(index, 1);
+        state.widgets.splice(index + 1, 0, item);
+      }
+    }
+  },
+  SET_TEMPLATE_NAME(state, newName) {
+    state.templateName = newName;
+  },
   setConfigSelectedWidget(state, newConfig) {
     state.configSelectedWidget = newConfig;
   },
-  setTemplateId(state, templateId) {
+  SET_TEMPLATE_WIDGETS(state, widgets){
+    state.widgets = widgets
+  },
+  SET_TEMPLATE_ID(state, templateId) {
     state.templateId = templateId;
   },
-  addWidget(state, widget) {
+  SET_IS_EDITING(state, bool) {
+    state.isEditing = bool;
+  },
+  ADD_WIDGET(state, widget) {
     state.widgets.push(widget);
   },
-  setTemplates(state, templates) {
+  SET_TEMPLATES(state, templates) {
     state.templates = templates;
   },
   setWidgetType(state, widgetType) {
     state.widgetType = widgetType;
   },
-  setTemplateName(state, templateName) {
-    state.templateName = templateName;
-  },
-  setTemplateDescription(state, templateDescription) {
+  SET_TEMPLATE_DESCRIPTION(state, templateDescription) {
     state.templateDescription = templateDescription;
   },
   setErrors(state, errors) {
@@ -150,12 +168,27 @@ export const mutations = {
 };
 
 export const actions = {
-
+  
+  updateWigets({ commit }, widgets) {
+    commit('SET_TEMPLATE_WIDGETS', widgets);
+  },
+  updateTemplateName({ commit }, newName) {
+    commit('SET_TEMPLATE_NAME', newName);
+  },
+  updateTemplateId({ commit }, id) {
+    commit('SET_TEMPLATE_ID', id);
+  },
+  updateIsEditing({ commit }, Boolean) {
+    commit('SET_IS_EDITING', Boolean);
+  },
+  updateTemplateDescription({ commit }, description) {
+    commit('SET_TEMPLATE_DESCRIPTION', description);
+  },
   addNewWidget({ commit }, configSelectedWidget,){
     configSelectedWidget.variable = makeid(10);
     const widget = JSON.parse(JSON.stringify(configSelectedWidget));
 
-    commit('addWidget', widget)
+    commit('ADD_WIDGET', widget)
   },
   async getTemplates({ commit, rootState }) {
     const axiosHeaders = {
@@ -167,7 +200,7 @@ export const actions = {
     try {
       const res = await this.$axios.get("/template", axiosHeaders);
       if (res.data.status == "success") {
-        commit('setTemplates', res.data.data);
+        commit('SET_TEMPLATES', res.data.data);
       }
     } catch (error) {
       Vue.prototype.$notify({
@@ -179,5 +212,4 @@ export const actions = {
       return;
     }
   },
-
 }
