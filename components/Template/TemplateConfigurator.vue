@@ -160,7 +160,6 @@
 
 import { Select, Option } from "element-ui";
 
-
 //import config and scripts
 
 
@@ -171,52 +170,49 @@ export default {
     [Select.name]: Select,
   },
 
-  data() {
-    return {
-      widgetType: null,
-      widgetConfigurations: this.$store.state.templates.widgetConfigurations,
-      configSelectedWidget: {},
-    }
-  },
+
   computed: {
-    currentWidgetType() {
-      return this.$store.state.templates.widgetType
+    widgetConfigurations() {
+      return this.$store.state.templates.widgetConfigurations
     },
-    temporalWidgetConfig() {
-      return this.$store.state.templates.temporalWidgetConfig
+    widgetType: {
+      get(){
+        return this.$store.state.templates.widgetType
+      },
+      set(type) {
+        this.$store.dispatch('templates/updateWigetType', type )
+      }
+    },
+    temporalWidgetConfig: {
+      get() {
+        return this.$store.state.templates.temporalWidgetConfig
+      },
+      set(bool) {
+        this.$store.dispatch('templates/updateTemporalWidgetConfig', bool)
+      }
+    },
+    configSelectedWidget: {
+      get() {
+        return this.$store.state.templates.configSelectedWidget
+      },
+      set(config) {
+        this.$store.dispatch('templates/updateConfigSelectedWidget', config)
+      }
     },
     widgetTypes() {
       return this.$store.state.templates.widgetTypes
     },
-    widgets() {
-      return this.$store.state.templates.widgets
-    },
-    currentConfigSelectedWidget() {
-      return this.$store.state.templates.configSelectedWidget
-    },
   },
   watch: {
-    currentWidgetType(newVal) {
-      this.widgetType = newVal
-    },
-    currentConfigSelectedWidget(newVal) {
-      this.configSelectedWidget = newVal
-    },
     widgetType(newWidgetType) {
       try {
         if (!this.temporalWidgetConfig) {
-          console.log(this.widgetConfigurations)
           this.configSelectedWidget = JSON.parse(
             JSON.stringify(this.widgetConfigurations[`${newWidgetType}`])
           );
         }
       } catch (error) {
         console.log(error);
-      }
-    },
-    temporalWidgetConfig(newWidgetConfig) {
-      if (this.temporalWidgetConfig) {
-        this.configSelectedWidget = newWidgetConfig;
       }
     }
   },
@@ -227,7 +223,7 @@ export default {
     },
       //Update wiget from local
     updateWidget() {
-      this.temporalWidgetConfig = null;
+      this.temporalWidgetConfig = false;
       this.widgetType = null;
     }
   }

@@ -111,14 +111,14 @@ export default {
         return;
       }
     },
-    // editTemplate(template) {
-    //   this.widgets = template.widgets;
-    //   this.templateDescription = template.description;
-    //   this.templateName = template.name;
-    //   this.templateId = template._id;
-    //   this.widgetType = "";
-    //   this.isEditing = true;
-    // },
+    editTemplate(template) {
+      this.$store.dispatch('templates/updateWigets', template.widgets);
+      this.$store.dispatch('templates/updateTemplateDescription', template.description);
+      this.$store.dispatch('templates/updateTemplateName', template.name);
+      this.$store.dispatch('templates/templateId', template.templateId);
+      this.$store.dispatch('templates/updateWigetType', null);
+      this.$store.dispatch('templates/updateIsEditing', true);
+    },
 
   }
 }

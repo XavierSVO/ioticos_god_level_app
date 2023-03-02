@@ -10,7 +10,7 @@
           class="fa fa-angle-down text-primary mr-3 pull-right" @click="moveWidget(index, 'down')"
           style="margin-bottom: 10px; cursor:pointer"></i>
         <i role="button" aria-hidden="true" class="fa fa-pen text-success mr-3 pull-right"
-          @click="!temporalWidgetConfig ? editWidget(widget) : () => { }" style="margin-bottom: 10px; cursor:pointer"></i>
+          @click="!temporalWidgetConfig ? editWidget(widget, index) : () => { }" style="margin-bottom: 10px; cursor:pointer"></i>
 
         <Rtnumberchart v-if="widget.widget == 'numberchart'" :config="widget"></Rtnumberchart>
 
@@ -76,9 +76,15 @@ export default {
       }
     },
       //edit Widget from local
-    editWidget(widget) {
-      this.$store.commit('templates/setConfigSelectedWidget', widget)
-      this.$store.commit('templates/setWidgetType', widget.widget);
+    editWidget(widget, index) {
+      const update = {
+        update: true,
+        index,
+        widget
+      };
+      this.$store.dispatch('templates/updateTemporalWidgetConfig', update);
+      // this.$store.dispatch('templates/updateConfigSelectedWidget', widget);
+      this.$store.dispatch('templates/updateWigetType', widget.widget);
     },
     //Delete Widget
     deleteWidget(index) {

@@ -138,7 +138,7 @@ export const mutations = {
   SET_TEMPLATE_NAME(state, newName) {
     state.templateName = newName;
   },
-  setConfigSelectedWidget(state, newConfig) {
+  SET_CONFIG_SELECTED_WIDGET(state, newConfig) {
     state.configSelectedWidget = newConfig;
   },
   SET_TEMPLATE_WIDGETS(state, widgets){
@@ -147,28 +147,36 @@ export const mutations = {
   SET_TEMPLATE_ID(state, templateId) {
     state.templateId = templateId;
   },
+  SET_TEMPLATES(state, templates) {
+    state.templates = templates;
+  },
   SET_IS_EDITING(state, bool) {
     state.isEditing = bool;
   },
   ADD_WIDGET(state, widget) {
     state.widgets.push(widget);
   },
-  SET_TEMPLATES(state, templates) {
-    state.templates = templates;
-  },
-  setWidgetType(state, widgetType) {
+  SET_WIDGET_TYPE(state, widgetType) {
     state.widgetType = widgetType;
+  },
+  SET_TEMPORAL_WIDGET_CONFIG(state, bool) {
+    state.temporalWidgetConfig = bool;
   },
   SET_TEMPLATE_DESCRIPTION(state, templateDescription) {
     state.templateDescription = templateDescription;
-  },
-  setErrors(state, errors) {
-    state.errors = errors;
   }
 };
 
 export const actions = {
-  
+  updateConfigSelectedWidget({ commit }, config) {
+    commit('SET_CONFIG_SELECTED_WIDGET', config);
+  },
+  updateTemporalWidgetConfig({ commit }, bool) {
+    commit('SET_TEMPORAL_WIDGET_CONFIG', bool);
+  },
+  updateWigetType({ commit }, type) {
+    commit('SET_WIDGET_TYPE', type);
+  },
   updateWigets({ commit }, widgets) {
     commit('SET_TEMPLATE_WIDGETS', widgets);
   },
@@ -178,8 +186,8 @@ export const actions = {
   updateTemplateId({ commit }, id) {
     commit('SET_TEMPLATE_ID', id);
   },
-  updateIsEditing({ commit }, Boolean) {
-    commit('SET_IS_EDITING', Boolean);
+  updateIsEditing({ commit }, boolean) {
+    commit('SET_IS_EDITING', boolean);
   },
   updateTemplateDescription({ commit }, description) {
     commit('SET_TEMPLATE_DESCRIPTION', description);
