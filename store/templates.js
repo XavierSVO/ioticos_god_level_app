@@ -157,9 +157,11 @@ export const mutations = {
     state.widgets.push(widget);
   },
   UPDATE_WIDGET(state, {widget, index}) {
-    console.log(state.widgets[index])
-    state.widgets[index] = widget;
-    console.log(state.widgets[index]) 
+    state.widgets = [
+      ...state.widgets.slice(0, index),
+      widget,
+      ...state.widgets.slice(index + 1)
+    ]
   },
   SET_WIDGET_TYPE(state, widgetType) {
     state.widgetType = widgetType;

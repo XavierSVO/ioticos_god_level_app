@@ -83,7 +83,6 @@ export default {
         widget
       };
       this.$store.dispatch('templates/updateTemporalWidgetConfig', update);
-      // this.$store.dispatch('templates/updateConfigSelectedWidget', widget);
       this.$store.dispatch('templates/updateWigetType', widget.widget);
     },
     //Delete Widget
