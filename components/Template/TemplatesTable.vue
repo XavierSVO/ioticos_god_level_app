@@ -115,7 +115,7 @@ export default {
       this.$store.dispatch('templates/updateWigets', template.widgets);
       this.$store.dispatch('templates/updateTemplateDescription', template.description);
       this.$store.dispatch('templates/updateTemplateName', template.name);
-      this.$store.dispatch('templates/templateId', template.templateId);
+      this.$store.dispatch('templates/updateTemplateId', template._id);
       this.$store.dispatch('templates/updateWigetType', null);
       this.$store.dispatch('templates/updateIsEditing', true);
     },
