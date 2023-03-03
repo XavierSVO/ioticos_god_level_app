@@ -156,6 +156,11 @@ export const mutations = {
   ADD_WIDGET(state, widget) {
     state.widgets.push(widget);
   },
+  UPDATE_WIDGET(state, {widget, index}) {
+    console.log(state.widgets[index])
+    state.widgets[index] = widget;
+    console.log(state.widgets[index]) 
+  },
   SET_WIDGET_TYPE(state, widgetType) {
     state.widgetType = widgetType;
   },
@@ -192,11 +197,16 @@ export const actions = {
   updateTemplateDescription({ commit }, description) {
     commit('SET_TEMPLATE_DESCRIPTION', description);
   },
-  addNewWidget({ commit }, configSelectedWidget,){
-    configSelectedWidget.variable = makeid(10);
+  addNewWidget({ commit }, configSelectedWidget){
     const widget = JSON.parse(JSON.stringify(configSelectedWidget));
+    widget.variable = makeid(10);
 
     commit('ADD_WIDGET', widget)
+  },
+  updateWidget({ commit }, {newWidgetConfig, index}){
+    const widget = JSON.parse(JSON.stringify(newWidgetConfig));
+
+    commit('UPDATE_WIDGET', {widget, index})
   },
   async getTemplates({ commit, rootState }) {
     const axiosHeaders = {

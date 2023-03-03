@@ -169,8 +169,11 @@ export default {
     [Option.name]: Option,
     [Select.name]: Select,
   },
-
-
+  data(){
+    return {
+      configSelectedWidget: {}
+    }
+  },
   computed: {
     widgetConfigurations() {
       return this.$store.state.templates.widgetConfigurations
@@ -191,7 +194,7 @@ export default {
         this.$store.dispatch('templates/updateTemporalWidgetConfig', bool)
       }
     },
-    configSelectedWidget: {
+    currentConfigSelectedWidget: {
       get() {
         return this.$store.state.templates.configSelectedWidget
       },
@@ -206,10 +209,16 @@ export default {
   watch: {
     widgetType(newWidgetType) {
       try {
+        //verfica que newWidgetType no sea null
+        if (!newWidgetType) return
         if (!this.temporalWidgetConfig) {
           this.configSelectedWidget = JSON.parse(
             JSON.stringify(this.widgetConfigurations[`${newWidgetType}`])
           );
+        }
+        if (this.temporalWidgetConfig) {
+          this.configSelectedWidget = JSON.parse(
+            JSON.stringify(this.temporalWidgetConfig.widget))
         }
       } catch (error) {
         console.log(error);
@@ -220,11 +229,19 @@ export default {
     //Add Widget
     addNewWidget() {
       this.$store.dispatch('templates/addNewWidget', this.configSelectedWidget);
-    },
-      //Update wiget from local
-    updateWidget() {
-      this.temporalWidgetConfig = false;
       this.widgetType = null;
+      this.configSelectedWidget = {};
+    },
+    //Update wiget from local
+    updateWidget() {
+      const payload = {
+        newWidgetConfig:this.configSelectedWidget,
+        index: this.temporalWidgetConfig.index
+      }
+      this.$store.dispatch('templates/updateWidget', payload );
+      this.widgetType = null;
+      this.configSelectedWidget = {};
+      this.temporalWidgetConfig = null;
     }
   }
 }
