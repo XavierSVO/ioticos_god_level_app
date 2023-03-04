@@ -72,7 +72,7 @@ const widgetConfigurations = {
       variable: "varname",
       variableType: "output",
       class: "danger",
-      setInterval: "30",
+      setInterval: 30,
       widget: "weather",
       icon: "fa-solid fa-cloud-sun",
       column: "col-10"

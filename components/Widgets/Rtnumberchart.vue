@@ -14,7 +14,7 @@
             <h3 class="card-title">
                 <i class="fa " :class="[config.icon, getIconColorClass()]" aria-hidden="true"
                     style="font-size: 30px;"></i>
-                <span>{{value.toFixed(config.decimalPlaces)}} {{config.unit}}</span>
+                <span>{{value.toFixed((Math.min(Math.max(config.decimalPlaces, 0), 100)))}} {{config.unit}}</span>
             </h3>
 
         </template>
@@ -176,7 +176,6 @@
                     return;
                 }
 
- 
                 const axiosHeaders = {
                     headers: {
                         token: $nuxt.$store.state.auth.token,
@@ -186,7 +185,6 @@
 
                 this.$axios.get("/get-small-charts-data", axiosHeaders)
                     .then(res => {
-                        
                         this.chartOptions.series[0].data = [];
                         const data = res.data.data;
                         console.log(res.data)
@@ -245,8 +243,6 @@
                 } catch (error) {
                     console.log(error);
                 }
-
-               
             },
 
             getNow() {

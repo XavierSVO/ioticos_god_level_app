@@ -98,8 +98,12 @@
             <base-input v-model="configSelectedWidget.icon" label="Icon" type="text"></base-input>
 
             <br />
-            <base-input v-model="configSelectedWidget.updateInterval" label="Update Interval" type="number" max="172800">
-          </base-input>
+            <number-input
+              v-model="configSelectedWidget.setInterval"
+              label="Update Interval"
+              :minValue="30"
+              :maxValue="172800">
+            </number-input>
 
 
             <br />
