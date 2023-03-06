@@ -144,7 +144,7 @@
       <div class="row pull-right">
         <div class="col-12">
           <base-button v-if="!temporalWidgetConfig" native-type="submit" type="primary" class="mb-3" size="lg"
-            @click="addNewWidget()">
+            @click="addNewWidget()" :disabled="!widgetType && enableAddWidget">
             Add Widget
           </base-button>
           <base-button v-if="temporalWidgetConfig" native-type="submit" type="primary" class="mb-3" size="lg"
@@ -175,6 +175,7 @@ export default {
   },
   data(){
     return {
+      enableAddWidget: true,
       configSelectedWidget: {}
     }
   },
