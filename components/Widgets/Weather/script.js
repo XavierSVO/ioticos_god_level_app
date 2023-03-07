@@ -11,7 +11,7 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
 export default {
   middleware: "authenticated",
-  name: "VueWeatherWidget",
+  name: "weather",
 
   components: {
     Skycon,
