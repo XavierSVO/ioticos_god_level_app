@@ -17,10 +17,16 @@
 
           <template v-if="widgetType">
             <div v-for="(field, index) in widgetFields[widgetType]" :key="index">
-              <base-input v-model="configSelectedWidget[field.model]" :label="field.label"
-                :type="field.type"></base-input>
+              <template v-if="field.type === 'number'">
+                <number-input v-model="configSelectedWidget[field.model]" :label="field.label" :minValue="field.minValue"
+                  :maxValue="field.maxValue" @error="handleError"/>
+              </template>
+              <template v-else>
+                <base-input v-model="configSelectedWidget[field.model]" :label="field.label" :type="field.type" />
+              </template>
               <br />
             </div>
+
 
             <el-select v-model="configSelectedWidget.class" class="select-success" placeholder="Select Class"
               style="width: 100%;">
@@ -48,7 +54,7 @@
       <div class="row pull-right">
         <div class="col-12">
           <base-button native-type="submit" type="primary" class="mb-3" size="lg"
-            @click="temporalWidgetConfig ? updateWidget() : addNewWidget()" :disabled="!widgetType && enableAddWidget">
+            @click="temporalWidgetConfig ? updateWidget() : addNewWidget()" :disabled="widgetType === null || !enableAddWidget">
             {{ temporalWidgetConfig ? 'Update Widget' : 'Add Widget' }}
           </base-button>
         </div>
@@ -68,7 +74,7 @@ import Iotswitch from '@/components/Widgets/Iotswitch.vue';
 import Iotbutton from '@/components/Widgets/Iotbutton.vue';
 import Iotindicator from '@/components/Widgets/Iotindicator.vue';
 import Weather from '@/components/Widgets/Weather';
-  
+
 
 //import config and scripts
 
@@ -138,7 +144,7 @@ export default {
         button: 'Iotbutton',
         indicator: 'Iotindicator',
         weather: 'Weather',
-        },
+      },
     }
   },
   computed: {
@@ -193,6 +199,10 @@ export default {
     }
   },
   methods: {
+    handleError(bool) {
+      this.enableAddWidget = bool
+      console.log(this.enableAddWidget)
+    },
     //Add Widget
     addNewWidget() {
       this.$store.dispatch('templates/addNewWidget', this.configSelectedWidget);

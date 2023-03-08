@@ -1,12 +1,10 @@
 <template>
-	 <BaseInput :label="label" :error="error" type="number" v-model="value" @input="handleInput" :min="minValue" :max="maxValue" />
+	<BaseInput :label="label" :error="error" type="number" v-model="value" />
 </template>
 
-  
 <script>
 export default {
-	inheritAttrs: false,
-  name: 'number-input',
+	name: 'number-input',
 	model: {
 		prop: 'value',
 		event: 'input'
@@ -18,7 +16,7 @@ export default {
 		},
 		value: {
 			type: Number,
-			default:30,
+			default: 30,
 			required: true
 		},
 		minValue: {
@@ -35,33 +33,41 @@ export default {
 			error: null
 		};
 	},
-	methods: {
-		handleInput() {
-			const value = this.value;
+	watch: {
+		value() {
+			let valueParse = this.value;
 			let error = null;
 
 			// Validar si es un número
-			if (isNaN(value)) {
+			if (isNaN(valueParse)) {
 				error = 'Debe ser un número';
 			} else {
-				const numberValue = Number(value);
+				const numberValue = Number(valueParse);
 
 				// Validar si el valor está dentro del rango
 				if (numberValue <= this.minValue) {
 					error = `El valor mínimo permitido es ${this.minValue}`;
-					this.value = this.minValue;
-				} 
+					valueParse = this.minValue;
+				}
 				if (numberValue >= this.maxValue) {
 					error = `El valor máximo permitido es ${this.maxValue}`;
-					this.value = this.maxValue;
+					valueParse = this.maxValue;
 				}
 			}
 
 			// Actualizar el valor y mostrar el error si lo hay
 			this.error = error;
-			this.$emit('input', Number(value));
+      this.$emit('input', valueParse)
+
+			// Emitir el evento "error" si hay un mensaje de error
+			if (error) {
+        console.log(error)
+        this.$emit('error', false);
+			} else {
+        this.$emit('error', true);
+      }
 		}
 	}
-};
+}
 </script>
   
