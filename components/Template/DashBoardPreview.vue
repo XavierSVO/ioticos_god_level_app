@@ -46,7 +46,7 @@ export default {
   computed: {
     widgets: {
       get() {
-        return this.$store.state.templates.widgets;
+        return this.$store.state.templates?.widgets;
       },
       set(widgets) {
         this.$store.dispatch('templates/updateWigets', widgets)

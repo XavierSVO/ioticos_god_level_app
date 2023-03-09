@@ -201,7 +201,6 @@ export default {
   methods: {
     handleError(bool) {
       this.enableAddWidget = bool
-      console.log(this.enableAddWidget)
     },
     //Add Widget
     addNewWidget() {

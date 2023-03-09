@@ -73,6 +73,7 @@ export default {
       // Positive is east, negative is west.
       latitude: "-12.0431800",
       longitude:"-77.0282400",
+      topic: ""
     };
   },
 
@@ -94,6 +95,7 @@ export default {
     this.hydrate();
   },
   beforeDestroy () {
+    this.$nuxt.$off(this.topic);
     this.scrollbar.destroy()
   },
   destroyed() {
@@ -160,15 +162,21 @@ export default {
   },
   methods: {
     sendValue() {
+      this.topic = this.config.userId + '/' + this.config.selectedDevice.dId + '/' + this.config.variable + '/actdata';
       const toSend = {
-        topic: this.config.userId + '/' + this.config.selectedDevice.dId + '/' + this.config.variable + '/actdata',
+        topic: this.topic,
         msg: {
           value: this.weather.currently.weather
         }
       };
 
       console.log(toSend);
-      this.$nuxt.$emit("mqtt-sender", toSend);
+      try {
+        this.$nuxt.$emit("mqtt-sender", toSend);
+        
+      } catch (error) {
+        console.log(error)
+      }
     },
     selectedLocation(location) {
       this.location = location.name;
@@ -211,7 +219,7 @@ export default {
     autoupdate() {
       clearTimeout(this.timeout);
       const time = Number(this.config.updateInterval);
-      if (!time || time < 10 || this.destroyed) {
+      if (!time || time < 30 || this.destroyed) {
         return;
       }
       this.timeout = setTimeout(() => this.hydrate(false), time);

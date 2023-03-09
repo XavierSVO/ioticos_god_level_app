@@ -35,7 +35,7 @@ export default {
 	},
 	watch: {
 		value() {
-			let valueParse = this.value;
+			let valueParse = Number(this.value);
 			let error = null;
 
 			// Validar si es un número
@@ -57,15 +57,15 @@ export default {
 
 			// Actualizar el valor y mostrar el error si lo hay
 			this.error = error;
-      this.$emit('input', valueParse)
+			this.$emit('input', valueParse)
 
 			// Emitir el evento "error" si hay un mensaje de error
 			if (error) {
-        console.log(error)
-        this.$emit('error', false);
+				console.log(error)
+				this.$emit('error', false);
 			} else {
-        this.$emit('error', true);
-      }
+				this.$emit('error', true);
+			}
 		}
 	}
 }
