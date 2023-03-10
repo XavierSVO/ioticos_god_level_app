@@ -5,8 +5,6 @@ const bcrypt = require("bcrypt");
 const { checkAuth } = require("../middlewares/authentication.js");
 
 //models import
-import User from "../models/user.js";
-import EmqxAuthRule from "../models/emqx_auth.js";
 
 //POST -> req.body
 //GET -> req.query
@@ -15,7 +13,7 @@ import EmqxAuthRule from "../models/emqx_auth.js";
 //**** A P I *******
 //******************
 
-router.get("/login", async (req, res) => {
+router.get("/units", checkAuth, async (req, res) => {
 
     try {
         const response = {
@@ -25,6 +23,15 @@ router.get("/login", async (req, res) => {
     
         return res.json(response);
     } catch (error) {
-        
+        console.log(error);
+
+        const response = {
+          status: "error",
+          error: error
+        };
+    
+        return res.status(500).json(response);
     }
 })
+
+module.exports = router;
