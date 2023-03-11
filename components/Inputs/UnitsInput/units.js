@@ -1,236 +1,236 @@
 const units = [
   {
-    name: "length",
-    units: [
+    "name": "length",
+    "units": [
       {
-        name: "meter",
-        symbol: "m",
-        type: "length",
-        category: "SI",
-        conversion_factor: 1
+        "name": "meter",
+        "symbol": "m",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 1
       },
       {
-        name: "centimeter",
-        symbol: "cm",
-        type: "length",
-        category: "SI",
-        conversion_factor: 0.01
+        "name": "centimeter",
+        "symbol": "cm",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 0.01
       },
       {
-        name: "millimeter",
-        symbol: "mm",
-        type: "length",
-        category: "SI",
-        conversion_factor: 0.001
+        "name": "millimeter",
+        "symbol": "mm",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 0.001
       },
       {
-        name: "micrometer",
-        symbol: "μm",
-        type: "length",
-        category: "SI",
-        conversion_factor: 0.000001
+        "name": "micrometer",
+        "symbol": "μm",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 0.000001
       },
       {
-        name: "nanometer",
-        symbol: "nm",
-        type: "length",
-        category: "SI",
-        conversion_factor: 0.000000001
+        "name": "nanometer",
+        "symbol": "nm",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 0.000000001
       },
       {
-        name: "kilometer",
-        symbol: "km",
-        type: "length",
-        category: "SI",
-        conversion_factor: 1000
+        "name": "kilometer",
+        "symbol": "km",
+        "type": "length",
+        "category": "SI",
+        "conversion_factor": 1000
       },
       {
-        name: "inch",
-        symbol: "in",
-        type: "length",
-        category: "imperial",
-        conversion_factor: 0.0254
+        "name": "inch",
+        "symbol": "in",
+        "type": "length",
+        "category": "imperial",
+        "conversion_factor": 0.0254
       },
       {
-        name: "foot",
-        symbol: "ft",
-        type: "length",
-        category: "imperial",
-        conversion_factor: 0.3048
+        "name": "foot",
+        "symbol": "ft",
+        "type": "length",
+        "category": "imperial",
+        "conversion_factor": 0.3048
       },
       {
-        name: "yard",
-        symbol: "yd",
-        type: "length",
-        category: "imperial",
-        conversion_factor: 0.9144
+        "name": "yard",
+        "symbol": "yd",
+        "type": "length",
+        "category": "imperial",
+        "conversion_factor": 0.9144
       }
     ]
   },
   {
-    name: "mass",
-    units: [
+    "name": "mass",
+    "units": [
       {
-        name: "kilogram",
-        symbol: "kg",
-        type: "mass",
-        category: "SI",
-        conversion_factor: 1
+        "name": "kilogram",
+        "symbol": "kg",
+        "type": "mass",
+        "category": "SI",
+        "conversion_factor": 1
       },
       {
-        name: "gram",
-        symbol: "g",
-        type: "mass",
-        category: "SI",
-        conversion_factor: 0.001
+        "name": "gram",
+        "symbol": "g",
+        "type": "mass",
+        "category": "SI",
+        "conversion_factor": 0.001
       },
       {
-        name: "milligram",
-        symbol: "mg",
-        type: "mass",
-        category: "SI",
-        conversion_factor: 0.000001
+        "name": "milligram",
+        "symbol": "mg",
+        "type": "mass",
+        "category": "SI",
+        "conversion_factor": 0.000001
       },
       {
-        name: "microgram",
-        symbol: "μg",
-        type: "mass",
-        category: "SI",
-        conversion_factor: 0.000000001
+        "name": "microgram",
+        "symbol": "μg",
+        "type": "mass",
+        "category": "SI",
+        "conversion_factor": 0.000000001
       },
       {
-        name: "pound",
-        symbol: "lb",
-        type: "mass",
-        category: "imperial",
-        conversion_factor: 0.453592
+        "name": "pound",
+        "symbol": "lb",
+        "type": "mass",
+        "category": "imperial",
+        "conversion_factor": 0.453592
       },
       {
-        name: "ounce",
-        symbol: "oz",
-        type: "mass",
-        category: "imperial",
-        conversion_factor: 0.0283495
+        "name": "ounce",
+        "symbol": "oz",
+        "type": "mass",
+        "category": "imperial",
+        "conversion_factor": 0.0283495
       }
     ]
   },
   {
-    name: "electric power",
-    units: [
+    "name": "electric power",
+    "units": [
       {
-        name: "watt",
-        symbol: "W",
-        type: "power",
-        category: "SI",
-        conversion_factor: 1
+        "name": "watt",
+        "symbol": "W",
+        "type": "power",
+        "category": "SI",
+        "conversion_factor": 1
       },
       {
-        name: "kilowatt",
-        symbol: "kW",
-        type: "power",
-        category: "SI",
-        conversion_factor: 1000
+        "name": "kilowatt",
+        "symbol": "kW",
+        "type": "power",
+        "category": "SI",
+        "conversion_factor": 1000
       },
       {
-        name: "megawatt",
-        symbol: "MW",
-        type: "power",
-        category: "SI",
-        conversion_factor: 1000000
+        "name": "megawatt",
+        "symbol": "MW",
+        "type": "power",
+        "category": "SI",
+        "conversion_factor": 1000000
       },
       {
-        name: "gigawatt",
-        symbol: "GW",
-        type: "power",
-        category: "SI",
-        conversion_factor: 1000000000
+        "name": "gigawatt",
+        "symbol": "GW",
+        "type": "power",
+        "category": "SI",
+        "conversion_factor": 1000000000
       },
       {
-        name: "horsepower",
-        symbol: "hp",
-        type: "power",
-        category: "imperial",
-        conversion_factor: 745.7
+        "name": "horsepower",
+        "symbol": "hp",
+        "type": "power",
+        "category": "imperial",
+        "conversion_factor": 745.7
       }
     ]
   },
   {
-    name: "pressure",
-    units: [
+    "name": "pressure",
+    "units": [
       {
-        name: "pascal",
-        symbol: "Pa",
-        type: "pressure",
-        category: "SI",
-        conversion_factor: 1
+        "name": "pascal",
+        "symbol": "Pa",
+        "type": "pressure",
+        "category": "SI",
+        "conversion_factor": 1
       },
       {
-        name: "bar",
-        symbol: "bar",
-        type: "pressure",
-        category: "metric",
-        conversion_factor: 100000
+        "name": "bar",
+        "symbol": "bar",
+        "type": "pressure",
+        "category": "metric",
+        "conversion_factor": 100000
       },
       {
-        name: "atmosphere",
-        symbol: "atm",
-        type: "pressure",
-        category: "metric",
-        conversion_factor: 101325
+        "name": "atmosphere",
+        "symbol": "atm",
+        "type": "pressure",
+        "category": "metric",
+        "conversion_factor": 101325
       },
       {
-        name: "pounds per square inch",
-        symbol: "psi",
-        type: "pressure",
-        category: "imperial",
-        conversion_factor: 6894.76
+        "name": "pounds per square inch",
+        "symbol": "psi",
+        "type": "pressure",
+        "category": "imperial",
+        "conversion_factor": 6894.76
       }
     ]
   },
   {
-    name: "temperature",
-    units: [
+    "name": "temperature",
+    "units": [
       {
-        name: "celsius",
-        symbol: "°C",
-        type: "temperature",
-        category: "metric",
-        conversion_factor: {
-          offset: 0,
-          factor: 1
+        "name": "celsius",
+        "symbol": "°C",
+        "type": "temperature",
+        "category": "metric",
+        "conversion_factor": {
+          "offset": 0,
+          "factor": 1
         }
       },
       {
-        name: "kelvin",
-        symbol: "K",
-        type: "temperature",
-        category: "SI",
-        conversion_factor: {
-          offset: -273.15,
-          factor: 1
+        "name": "kelvin",
+        "symbol": "K",
+        "type": "temperature",
+        "category": "SI",
+        "conversion_factor": {
+          "offset": -273.15,
+          "factor": 1
         }
       },
       {
-        name: "fahrenheit",
-        symbol: "°F",
-        type: "temperature",
-        category: "imperial",
-        conversion_factor: {
-          offset: -32,
-          factor: 5 / 9
+        "name": "fahrenheit",
+        "symbol": "°F",
+        "type": "temperature",
+        "category": "imperial",
+        "conversion_factor": {
+          "offset": -32,
+          "factor": 5 / 9
         }
       }
     ]
   },
 	{
-		name: "electricity",
-		units: [
+		"name": "electricity",
+		"units": [
 			{
-				name: "ampere",
+				"name": "ampere",
 				"symbol": "A",
 				"type": "electric current",
 				"category": "SI",
-				"conversion_factor": 1
+				"conversion_factor":1
 			},
 			{
 				"name": "milliampere",
@@ -250,7 +250,7 @@ const units = [
 				"name": "volt",
 				"symbol": "V",
 				"type": "electric potential",
-				"category": "SI",
+			  "category": "SI",
 				"conversion_factor": 1
 			},
 			{
