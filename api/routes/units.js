@@ -13,7 +13,7 @@ import Units from "../models/units.js";
 //**** A P I *******
 //******************
 
-router.get("/units", async (req, res) => {
+router.get("/units", checkAuth, async (req, res) => {
 
     try {
 
@@ -41,7 +41,7 @@ router.get("/units", async (req, res) => {
     }
 })
 
-router.post("/units", async (req, res) => {
+router.post("/units", checkAuth, async (req, res) => {
 
     try {
         const { name, units } = req.body; // Obtener los datos del cuerpo de la solicitud
